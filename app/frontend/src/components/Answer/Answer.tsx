@@ -108,17 +108,16 @@ export const Answer = ({
                 <Stack.Item>
                     <Stack horizontal wrap tokens={{ childrenGap: 5 }}>
                         <span className={styles.citationLearnMore}>{t("citationWithColon")}</span>
-                        {parsedAnswer.citations
-                          .filter(x => !x.toLowerCase().endsWith(".pdf")) // <== PDF-ийг харуулахгүй болгох
-                          .map((x, i) => {
-                              const path = getCitationFilePath(x);
-                              const strippedPath = path.replace(/\([^)]*\)$/, "");
-                              return (
-                                  <a key={i} className={styles.citation} title={x} onClick={() => onCitationClicked(strippedPath)}>
-                                      {`${++i}. ${x}`}
-                                  </a>
-                              );
-                          })}
+                        {parsedAnswer.citations.map((x, i) => {
+                            const path = getCitationFilePath(x);
+                            // Strip out the image filename in parentheses if it exists
+                            const strippedPath = path.replace(/\([^)]*\)$/, "");
+                            return (
+                                <a key={i} className={styles.citation} title={x} onClick={() => onCitationClicked(strippedPath)}>
+                                    {`${++i}. ${x}`}
+                                </a>
+                            );
+                        })}
                     </Stack>
                 </Stack.Item>
             )}
@@ -127,11 +126,13 @@ export const Answer = ({
                 <Stack.Item>
                     <Stack horizontal wrap className={`${!!parsedAnswer.citations.length ? styles.followupQuestionsList : ""}`} tokens={{ childrenGap: 6 }}>
                         <span className={styles.followupQuestionLearnMore}>{t("followupQuestions")}</span>
-                        {followupQuestions.map((x, i) => (
-                            <a key={i} className={styles.followupQuestion} title={x} onClick={() => onFollowupQuestionClicked(x)}>
-                                {`${x}`}
-                            </a>
-                        ))}
+                        {followupQuestions.map((x, i) => {
+                            return (
+                                <a key={i} className={styles.followupQuestion} title={x} onClick={() => onFollowupQuestionClicked(x)}>
+                                    {`${x}`}
+                                </a>
+                            );
+                        })}
                     </Stack>
                 </Stack.Item>
             )}
