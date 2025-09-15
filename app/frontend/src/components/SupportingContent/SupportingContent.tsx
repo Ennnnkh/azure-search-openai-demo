@@ -10,7 +10,7 @@ export const SupportingContent = ({ supportingContent }: Props) => {
     const textItems = Array.isArray(supportingContent) ? supportingContent : supportingContent.text;
     const imageItems = !Array.isArray(supportingContent) ? supportingContent?.images : [];
     return (
-/*        <ul className={styles.supportingContentNavList}>
+          <ul className={styles.supportingContentNavList}>
             {textItems.map((c, ind) => {
                 const parsed = parseSupportingContentItem(c);
                 return (
@@ -30,4 +30,4 @@ export const SupportingContent = ({ supportingContent }: Props) => {
         </ul>
     );
 };
-*/
+
